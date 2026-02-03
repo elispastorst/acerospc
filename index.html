@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aceros PC | Ingeniería en Maquinaria Alimenticia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset y estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2980, #26d0ce);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Tarjeta principal */
+        .business-card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Header con navegación - MÁS DESTACADO */
+        .card-header {
+            background: linear-gradient(to right, #1a237e, #283593);
+            color: white;
+            padding: 30px;
+            position: relative;
+            border-bottom: 5px solid #ff9800;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo-main {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex: 1;
+        }
+
+        .logo-icon-main {
+            font-size: 3.5rem;
+            color: #ff9800;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 15px;
+        }
+
+        .logo-text-main h1 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            font-weight: 800;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-text-main p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        /* QR Code Section */
+        .qr-section {
+            text-align: center;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            min-width: 180px;
+        }
+
+        .qr-code {
+            width: 150px;
+            height: 150px;
+            background: #f5f5f5;
+            border-radius: 10px;
+            margin: 0 auto 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            border: 2px dashed #ff9800;
+            padding: 10px;
+        }
+
+        .qr-code i {
+            font-size: 3rem;
+            color: #1a237e;
+            margin-bottom: 10px;
+        }
+
+        .qr-text {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 600;
+        }
+
+        /* Menú Hamburguesa Principal */
+        .menu-toggle {
+            background: #ff9800;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1001;
+        }
+
+        .menu-toggle:hover {
+            background: #e68900;
+            transform: scale(1.05);
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 30px;
+            height: 4px;
+            background: white;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* Menú desplegable principal */
+        .nav-menu {
+            position: absolute;
+            top: 100%;
+            right: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-15px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .nav-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .nav-menu ul {
+            list-style: none;
+            padding: 20px 0;
+        }
+
+        .nav-menu li {
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .nav-menu li:last-child {
+            border-bottom: none;
+        }
+
+        .nav-menu a {
+            display: block;
+            padding: 17px 30px;
+            color: #333;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s;
+        }
+
+        .nav-menu a:hover {
+            background: linear-gradient(to right, #ff9800, #ffad33);
+            color: white;
+            padding-left: 35px;
+        }
+
+        .nav-menu a i {
+            margin-right: 15px;
+            width: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        /* Contenido principal */
+        .card-content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0;
+        }
+
+        .main-content {
+            flex: 2;
+            min-width: 300px;
+            padding: 40px;
+        }
+
+        .sidebar {
+            flex: 1;
+            min-width: 280px;
+            background: linear-gradient(to bottom, #f8f9fa, #eef2f7);
+            padding: 40px 30px;
+            border-left: 1px solid #eee;
+        }
+
+        .section-title {
+            color: #1a237e;
+            font-size: 1.6rem;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #ff9800;
+            display: inline-block;
+            font-weight: 700;
+        }
+
+        /* Menú Misión/Visón/Valores */
+        .mvvtabs {
+            display: flex;
+            background: #f0f0f0;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .mvvtabs button {
+            flex: 1;
+            padding: 18px 10px;
+            border: none;
+            background: transparent;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .mvvtabs button:hover {
+            background: rgba(255, 152, 0, 0.1);
+        }
+
+        .mvvtabs button.active {
+            background: #ff9800;
+            color: white;
+            border-bottom: 3px solid #1a237e;
+        }
+
+        .mvv-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            min-height: 300px;
+        }
+
+        .mvv-item {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .mvv-item.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .mvv-item h3 {
+            color: #1a237e;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .mvv-item h3 i {
+            color: #ff9800;
+        }
+
+        .mvv-item p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        .values-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .values-list li {
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #f8f9fa;
+            border-left: 5px solid #ff9800;
+            border-radius: 0 8px 8px 0;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .values-list i {
+            color: #ff9800;
+            font-size: 1.3rem;
+        }
+
+        .description {
+            margin-bottom: 35px;
+            font-size: 1.15rem;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .services-list {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .services-list li {
+            padding: 15px 0;
+            border-bottom: 1px dashed #ddd;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+
+        .services-list li:last-child {
+            border-bottom: none;
+        }
+
+        .services-list i {
+            color: #ff9800;
+            margin-right: 15px;
+            font-size: 1.4rem;
+            min-width: 25px;
+        }
+
+        /* Información de contacto */
+        .contact-info {
+            list-style: none;
+        }
+
+        .contact-info li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .contact-info li:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ff9800, #ffad33);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .contact-text h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: #1a237e;
+            font-weight: 700;
+        }
+
+        .contact-text p {
+            color: #666;
+            font-size: 1.05rem;
+        }
+
+        /* Mapa */
+        .map-container {
+            margin-top: 30px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border: 3px solid #ff9800;
+        }
+
+        .map-placeholder {
+            background: linear-gradient(135deg, #eef2f7, #dbe4f0);
+            height: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #1a237e;
+            font-weight: 600;
+        }
+
+        .map-placeholder i {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #ff9800;
+        }
+
+        /* Footer */
+        .card-footer {
+            background: #1a237e;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            font-size: 1rem;
+            border-top: 5px solid #ff9800;
+        }
+
+        .footer-text {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.8rem;
+            transition: all 0.3s;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .social-links a:hover {
+            color: #ff9800;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo-main {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .qr-section {
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                border-left: none;
+                border-top: 1px solid #eee;
+            }
+            
+            .nav-menu {
+                right: 20px;
+                width: 250px;
+            }
+            
+            .main-content, .sidebar {
+                padding: 30px 25px;
+            }
+            
+            .logo-text-main h1 {
+                font-size: 1.8rem;
+            }
+            
+            .logo-text-main p {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card-header {
+                padding: 20px;
+            }
+            
+            .mvvtabs {
+                flex-direction: column;
+            }
+            
+            .mvvtabs button {
+                width: 100%;
+            }
+            
+            .mvv-content {
+                padding: 20px;
+            }
+            
+            .social-links a {
+                width: 45px;
+                height: 45px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="business-card">
+            <!-- Encabezado con logo y QR -->
+            <header class="card-header">
+                <div class="header-content">
+                    <div class="logo-main">
+                        <div class="logo-icon-main">
+                            <i class="fas fa-industry"></i>
+                        </div>
+                        <div class="logo-text-main">
+                            <h1>Aceros PC</h1>
+                            <p>INGENIERÍA EN MAQUINARIA ALIMENTICIA</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Sección QR -->
+                    <div class="qr-section">
+                        <div class="qr-code">
+                            <i class="fas fa-qrcode"></i>
+                            <div class="qr-text">Escanea para guardar contacto</div>
+                        </div>
+                        <p style="color: #1a237e; font-weight: 600; margin-top: 5px;">Tu Tarjeta Digital</p>
+                    </div>
+                    
+                    <!-- Botón menú hamburguesa -->
+                    <button class="menu-toggle" id="menuToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    
+                    <!-- Menú desplegable principal -->
+                    <nav class="nav-menu" id="navMenu">
+                        <ul>
+                            <li><a href="#inicio"><i class="fas fa-home"></i> Inicio</a></li>
+                            <li><a href="#mision" class="mvv-tab-btn" data-tab="mision"><i class="fas fa-bullseye"></i> Misión</a></li>
+                            <li><a href="#vision" class="mvv-tab-btn" data-tab="vision"><i class="fas fa-eye"></i> Visión</a></li>
+                            <li><a href="#valores" class="mvv-tab-btn" data-tab="valores"><i class="fas fa-heart"></i> Valores</a></li>
+                            <li><a href="#servicios"><i class="fas fa-tools"></i> Servicios</a></li>
+                            <li><a href="#contacto"><i class="fas fa-address-book"></i> Contacto</a></li>
+                            <li><a href="#whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp Directo</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </header>
+
+            <!-- Contenido principal -->
+            <div class="card-content">
+                <!-- Sección principal -->
+                <main class="main-content">
+                    <!-- Menú Misión/Visión/Valores -->
+                    <div class="mvvtabs" id="mvvtabs">
+                        <button class="active" data-tab="mision">Misión</button>
+                        <button data-tab="vision">Visión</button>
+                        <button data-tab="valores">Valores</button>
+                    </div>
+                    
+                    <!-- Contenido Misión/Visión/Valores -->
+                    <div class="mvv-content">
+                        <div class="mvv-item active" id="mision-content">
+                            <h3><i class="fas fa-bullseye"></i> Nuestra Misión</h3>
+                            <p>En <strong>Aceros PC</strong> nos dedicamos a proporcionar soluciones integrales en fabricación y mantenimiento de maquinaria para la industria alimenticia, garantizando equipos de la más alta calidad, seguridad e higiene.</p>
+                            <p>Nos comprometemos a satisfacer las necesidades específicas de cada cliente mediante tecnología de vanguardia, materiales de primera calidad y un equipo humano altamente calificado, contribuyendo así al crecimiento y eficiencia de la industria alimentaria en Colombia.</p>
+                            <p>Buscamos establecer relaciones comerciales duraderas basadas en la confianza, la excelencia técnica y el cumplimiento de los más altos estándares internacionales.</p>
+                        </div>
+                        
+                        <div class="mvv-item" id="vision-content">
+                            <h3><i class="fas fa-eye"></i> Nuestra Visión</h3>
+                            <p>Ser reconocidos para el año 2030 como <strong>líderes en innovación y fabricación de maquinaria alimenticia</strong> en la región nororiental de Colombia, expandiendo nuestra influencia a nivel nacional e internacional.</p>
+                            <p>Aspiramos a ser el socio estratégico preferido de la industria alimenticia, destacándonos por nuestra capacidad de desarrollar soluciones personalizadas, nuestra responsabilidad ambiental y nuestro compromiso con el progreso tecnológico del sector.</p>
+                            <p>Visualizamos una empresa en constante crecimiento, que contribuye al desarrollo económico de Cúcuta y la región, generando empleo de calidad y formando especialistas en ingeniería alimenticia.</p>
+                        </div>
+                        
+                        <div class="mvv-item" id="valores-content">
+                            <h3><i class="fas fa-heart"></i> Nuestros Valores</h3>
+                            <ul class="values-list">
+                                <li><i class="fas fa-award"></i> <strong>Calidad:</strong> Excelencia en cada proceso, material y equipo que fabricamos.</li>
+                                <li><i class="fas fa-handshake"></i> <strong>Integridad:</strong> Honestidad y transparencia en todas nuestras relaciones comerciales.</li>
+                                <li><i class="fas fa-users"></i> <strong>Orientación al Cliente:</strong> Soluciones personalizadas que superan las expectativas.</li>
+                                <li><i class="fas fa-lightbulb"></i> <strong>Innovación:</strong> Búsqueda constante de mejoras técnicas y tecnológicas.</li>
+                                <li><i class="fas fa-shield-alt"></i> <strong>Seguridad:</strong> Compromiso con normas de higiene y seguridad alimentaria.</li>
+                                <li><i class="fas fa-leaf"></i> <strong>Sostenibilidad:</strong> Prácticas responsables con el medio ambiente.</li>
+                                <li><i class="fas fa-clock"></i> <strong>Puntualidad:</strong> Cumplimiento riguroso de plazos de entrega.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Servicios -->
+                    <h2 class="section-title">Servicios Especializados</h2>
+                    <p class="description">
+                        Ofrecemos soluciones completas para la industria alimenticia, desde el diseño hasta el mantenimiento de maquinaria especializada.
+                    </p>
+                    
+                    <ul class="services-list">
+                        <li><i class="fas fa-cogs"></i> <strong>Fabricación personalizada:</strong> Equipos diseñados según sus necesidades específicas</li>
+                        <li><i class="fas fa-wrench"></i> <strong>Mantenimiento integral:</strong> Preventivo, correctivo y predictivo de maquinaria</li>
+                        <li><i class="fas fa-project-diagram"></i> <strong>Diseño de líneas:</strong> Planificación completa de líneas de producción</li>
+                        <li><i class="fas fa-shield-alt"></i> <strong>Aceros inoxidables:</strong> Materiales grado alimenticio (AISI 304, 316)</li>
+                        <li><i class="fas fa-truck-loading"></i> <strong>Instalación y puesta en marcha:</strong> Montaje y capacitación in situ</li>
+                        <li><i class="fas fa-clipboard-check"></i> <strong>Asesoría técnica:</strong> Consultoría especializada en procesos alimenticios</li>
+                        <li><i class="fas fa-tools"></i> <strong>Reparación de equipos:</strong> Reactivación de maquinaria dañada o obsoleta</li>
+                        <li><i class="fas fa-certificate"></i> <strong>Certificaciones:</strong> Asesoría en normas sanitarias y de calidad</li>
+                    </ul>
+                </main>
+
+                <!-- Sidebar con contacto -->
+                <aside class="sidebar">
+                    <h2 class="section-title">Contacto Directo</h2>
+                    
+                    <ul class="contact-info">
+                        <li onclick="window.open('tel:+573107999617', '_self')">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h3>Teléfono / WhatsApp</h3>
+                                <p>310 799 96 17</p>
+                                <small style="color: #ff9800; font-weight: 600;">¡Llámenos ahora!</small>
+                            </div>
+                        </li>
+                        <li onclick="window.open('https://wa.me/573107999617', '_blank')">
+                            <div class="contact-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h3>WhatsApp Business</h3>
+                                <p>Chat directo con ventas</p>
+                                <small style="color: #25D366; font-weight: 600;">Respuesta rápida</small>
+                            </div>
+                        </li>
+                        <li onclick="window.open('https://www.google.com/maps/search/?api=1&query=Calle+4+entre+Av+9-10+Local+102+Cúcuta', '_blank')">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h3>Dirección</h3>
+                                <p>Calle 4 entre Av 9-10<br>Local 102, Cúcuta</p>
+                                <small style="color: #1a237e; font-weight: 600;">Ver en Google Maps</small>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h3>Horario de Atención</h3>
+                                <p>Lunes a Viernes: 8:00 AM - 6:00 PM<br>Sábados: 8:00 AM - 1:00 PM</p>
+                                <small style="color: #666;">Emergencias: 24/7</small>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <!-- Mapa de ubicación -->
+                    <div class="map-container">
+                        <div class="map-placeholder">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <p>Ubicación estratégica en Cúcuta</p>
+                            <p style="font-size: 0.9rem; margin-top: 10px;">Zona industrial de fácil acceso</p>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+
+            <!-- Pie de página -->
+            <footer class="card-footer">
+                <p class="footer-text">"Todo en Fabricación y Mantenimiento de Maquinaria Alimenticia"</p>
+                <p>Aceros PC © 2025 - Especialistas en Ingeniería Alimenticia</p>
+                <div class="social-links">
+                    <a href="https://wa.me/573107999617" target="_blank" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="tel:+573107999617" title="Llamar">
+                        <i class="fas fa-phone"></i>
+                    </a>
+                    <a href="mailto:info@acerospc.com" title="Correo">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="#" title="Facebook">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="#" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Control del menú hamburguesa principal
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        // Alternar menú al hacer clic
+        menuToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            navMenu.classList.toggle('active');
+            
+            // Animación de icono a "X"
+            const spans = menuToggle.querySelectorAll('span');
+            if (navMenu.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(8px, 8px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(8px, -8px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+        
+        // Control de pestañas Misión/Visión/Valores
+        const mvvTabs = document.getElementById('mvvtabs');
+        const mvvButtons = mvvTabs.querySelectorAll('button');
+        const mvvContents = document.querySelectorAll('.mvv-item');
+        
+        mvvButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remover clase active de todos los botones
+                mvvButtons.forEach(btn => btn.classList.remove('active'));
+                // Añadir clase active al botón clickeado
+                button.classList.add('active');
+                
+                // Obtener el tab a mostrar
+                const tabToShow = button.getAttribute('data-tab');
+                
+                // Ocultar todos los contenidos
+                mvvContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Mostrar el contenido correspondiente
+                document.getElementById(`${tabToShow}-content`).classList.add('active');
+            });
+        });
+        
+        // Enlaces del menú principal que activan pestañas
+        const mvvMenuButtons = document.querySelectorAll('.mvv-tab-btn');
+        mvvMenuButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const tabToShow = button.getAttribute('data-tab');
+                
+                // Cerrar menú hamburguesa
+                navMenu.classList.remove('active');
+                const spans = menuToggle.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+                
+                // Activar la pestaña correspondiente
+                mvvButtons.forEach(btn => btn.classList.remove('active'));
+                document.querySelector(`button[data-tab="${tabToShow}"]`).classList.add('active');
+                
+                mvvContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(`${tabToShow}-content`).classList.add('active');
+                
+                // Scroll suave al contenido
+                document.querySelector('.mvv-content').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+        
+        // Cerrar menú al hacer clic en un enlace normal
+        const navLinks = document.querySelectorAll('.nav-menu a:not(.mvv-tab-btn)');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                // Restaurar icono hamburguesa
+                const spans = menuToggle.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            });
+        });
+        
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener('click', (event) => {
+            if (!menuToggle.contains(event.target) && !navMenu.contains(event.target)) {
+                navMenu.classList.remove('active');
+                // Restaurar icono hamburguesa
+                const spans = menuToggle.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+        
+        // Generador de QR Code simulado (en producción usaría una API real)
+        const qrCode = document.querySelector('.qr-code');
+        qrCode.addEventListener('click', function() {
+            // En una implementación real, aquí se generaría un QR dinámico
+            // Por ahora, mostramos un mensaje
+            alert('QR Code de contacto: Contiene toda la información de Aceros PC para escanear y guardar en tu agenda.');
+            
+            // Cambiar temporalmente el icono
+            const icon = this.querySelector('i');
+            icon.className = 'fas fa-check-circle';
+            icon.style.color = '#4CAF50';
+            
+            setTimeout(() => {
+                icon.className = 'fas fa-qrcode';
+                icon.style.color = '#1a237e';
+            }, 2000);
+        });
+        
+        // Efecto de carga inicial para Misión/Visión/Valores
+        document.addEventListener('DOMContentLoaded', function() {
+            const mvvContent = document.querySelector('.mvv-content');
+            mvvContent.style.opacity = '0';
+            mvvContent.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                mvvContent.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                mvvContent.style.opacity = '1';
+                mvvContent.style.transform = 'translateY(0)';
+            }, 300);
+        });
+    </script>
+</body>
+</html>
